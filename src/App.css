@@ -1,0 +1,313 @@
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #1a1a1a;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #1a2b3c;
+  color: white;
+  flex-shrink: 0;
+  gap: 16px;
+}
+
+.tour-name-input {
+  font-size: 18px;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid transparent;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  min-width: 200px;
+}
+
+.tour-name-input:hover,
+.tour-name-input:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.toolbar-actions button {
+  background: #2c3e50;
+  color: white;
+  border: 1px solid #445;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.toolbar-actions button:hover:not(:disabled) {
+  background: #34495e;
+}
+
+.toolbar-actions button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.sidebar {
+  width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: #f5f6f8;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+}
+
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.map-container {
+  flex: 1;
+  min-height: 0;
+}
+
+.profile-container {
+  height: 220px;
+  flex-shrink: 0;
+  border-top: 1px solid #ddd;
+  background: white;
+  padding: 8px;
+}
+
+.elevation-profile {
+  height: 100%;
+  width: 100%;
+}
+
+.elevation-profile.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 13px;
+}
+
+/* Stage list */
+.stage-list {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.stage-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.stage-list-header h2 {
+  font-size: 15px;
+  margin: 0;
+}
+
+.stage-list-header button {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.stage-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.stage-item {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.stage-item.active {
+  box-shadow: 0 0 0 2px #2c3e50;
+}
+
+.stage-item-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.stage-index {
+  font-weight: 700;
+  font-size: 12px;
+  color: #888;
+  width: 18px;
+}
+
+.stage-name-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.stage-name-input:focus {
+  background: #f0f0f0;
+  outline: none;
+}
+
+.stage-name-input::placeholder {
+  font-weight: 400;
+  color: #aaa;
+}
+
+.stage-arrow {
+  color: #aaa;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.stage-item-controls {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.stage-item-controls select {
+  flex: 1;
+  font-size: 11px;
+  padding: 3px 4px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.stage-item-controls button {
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 2px 6px;
+}
+
+.stage-item-controls button.danger {
+  color: #c0392b;
+}
+
+.stage-item-controls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.stage-item-stats {
+  display: flex;
+  gap: 10px;
+  font-size: 11px;
+  color: #555;
+}
+
+.routing-badge {
+  color: #2980b9;
+}
+
+.error-badge {
+  color: #c0392b;
+}
+
+/* Stats panel */
+.stats-panel {
+  padding: 12px;
+}
+
+.stats-block {
+  margin-bottom: 16px;
+}
+
+.stats-block h3 {
+  font-size: 13px;
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-pill {
+  color: white;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.stat {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.hint {
+  font-size: 12px;
+  color: #888;
+  margin-top: 8px;
+}
+
+.hint.error {
+  color: #c0392b;
+}
