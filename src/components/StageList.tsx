@@ -1,5 +1,6 @@
 import { useTourStore } from "../store";
 import { STAGE_CATEGORIES } from "../types";
+import LocationAutocomplete from "./LocationAutocomplete";
 
 export default function StageList() {
   const tour = useTourStore((s) => s.tour);
@@ -10,6 +11,8 @@ export default function StageList() {
   const reorderStages = useTourStore((s) => s.reorderStages);
   const setStageStartLocation = useTourStore((s) => s.setStageStartLocation);
   const setStageEndLocation = useTourStore((s) => s.setStageEndLocation);
+  const setStageStartPlace = useTourStore((s) => s.setStageStartPlace);
+  const setStageEndPlace = useTourStore((s) => s.setStageEndPlace);
   const setStageCategory = useTourStore((s) => s.setStageCategory);
 
   return (
@@ -31,20 +34,18 @@ export default function StageList() {
             >
               <div className="stage-item-top">
                 <span className="stage-index">{idx + 1}</span>
-                <input
-                  className="stage-name-input"
-                  placeholder="Départ"
+                <LocationAutocomplete
                   value={stage.startLocation}
-                  onClick={(e) => e.stopPropagation()}
-                  onChange={(e) => setStageStartLocation(stage.id, e.target.value)}
+                  placeholder="Départ"
+                  onTextChange={(text) => setStageStartLocation(stage.id, text)}
+                  onSelect={(place) => setStageStartPlace(stage.id, place)}
                 />
                 <span className="stage-arrow">→</span>
-                <input
-                  className="stage-name-input"
-                  placeholder="Arrivée"
+                <LocationAutocomplete
                   value={stage.endLocation}
-                  onClick={(e) => e.stopPropagation()}
-                  onChange={(e) => setStageEndLocation(stage.id, e.target.value)}
+                  placeholder="Arrivée"
+                  onTextChange={(text) => setStageEndLocation(stage.id, text)}
+                  onSelect={(place) => setStageEndPlace(stage.id, place)}
                 />
               </div>
               <div className="stage-item-controls" onClick={(e) => e.stopPropagation()}>

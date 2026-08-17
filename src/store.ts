@@ -16,6 +16,8 @@ interface TourState {
   reorderStages: (fromIndex: number, toIndex: number) => void;
   setStageStartLocation: (stageId: string, startLocation: string) => void;
   setStageEndLocation: (stageId: string, endLocation: string) => void;
+  setStageStartPlace: (stageId: string, place: { label: string; lat: number; lng: number }) => void;
+  setStageEndPlace: (stageId: string, place: { label: string; lat: number; lng: number }) => void;
   setStageCategory: (stageId: string, category: StageCategory) => void;
   setActiveStage: (stageId: string) => void;
 
@@ -118,6 +120,38 @@ export const useTourStore = create<TourState>((set, get) => ({
 
   setStageEndLocation: (stageId, endLocation) =>
     set((s) => ({ tour: { ...s.tour, stages: updateStage(s.tour.stages, stageId, { endLocation }) } })),
+
+  setStageStartPlace: (stageId, place) => {
+    set((s) => {
+      const stage = s.tour.stages.find((st) => st.id === stageId);
+      if (!stage) return s;
+      const waypoint: Waypoint = { id: crypto.randomUUID(), lat: place.lat, lng: place.lng };
+      const waypoints =
+        stage.waypoints.length === 0
+          ? [waypoint]
+          : stage.waypoints.map((w, i) => (i === 0 ? waypoint : w));
+      return {
+        tour: { ...s.tour, stages: updateStage(s.tour.stages, stageId, { startLocation: place.label, waypoints }) },
+      };
+    });
+    triggerRouting(get, set, stageId);
+  },
+
+  setStageEndPlace: (stageId, place) => {
+    set((s) => {
+      const stage = s.tour.stages.find((st) => st.id === stageId);
+      if (!stage) return s;
+      const waypoint: Waypoint = { id: crypto.randomUUID(), lat: place.lat, lng: place.lng };
+      const waypoints =
+        stage.waypoints.length <= 1
+          ? [...stage.waypoints, waypoint]
+          : stage.waypoints.map((w, i) => (i === stage.waypoints.length - 1 ? waypoint : w));
+      return {
+        tour: { ...s.tour, stages: updateStage(s.tour.stages, stageId, { endLocation: place.label, waypoints }) },
+      };
+    });
+    triggerRouting(get, set, stageId);
+  },
 
   setStageCategory: (stageId, category) =>
     set((s) => ({ tour: { ...s.tour, stages: updateStage(s.tour.stages, stageId, { category }) } })),

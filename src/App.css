@@ -196,6 +196,48 @@
   color: #aaa;
 }
 
+.location-autocomplete {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.location-autocomplete .stage-name-input {
+  width: 100%;
+}
+
+.location-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: -60px;
+  z-index: 20;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 2px 0 0 0;
+  padding: 4px 0;
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.location-suggestions li {
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.location-suggestions li.highlighted,
+.location-suggestions li:hover {
+  background: #eef3f8;
+}
+
 .stage-arrow {
   color: #aaa;
   font-size: 12px;
