@@ -2,6 +2,9 @@ import type { RoutePoint, Waypoint } from "../types";
 
 const BROUTER_URL = "https://brouter.de/brouter";
 const PROFILE = "fastbike"; // route pavée, profil vélo rapide (proche vélo de route)
+// désactive le bonus "sécurité/trafic" du profil, qui sinon fait pencher la balance
+// vers les pistes cyclables dès qu'elles sont un peu plus directes qu'une route
+const PROFILE_PARAMS = "&profile:consider_traffic=0";
 const ELEVATION_NOISE_THRESHOLD_M = 2; // ignore le bruit SRTM sous ce seuil
 
 export class RoutingError extends Error {}
@@ -19,7 +22,7 @@ export async function computeRoute(waypoints: Waypoint[]): Promise<RouteResult> 
   }
 
   const lonlats = waypoints.map((w) => `${w.lng},${w.lat}`).join("|");
-  const url = `${BROUTER_URL}?lonlats=${lonlats}&profile=${PROFILE}&alternativeidx=0&format=geojson`;
+  const url = `${BROUTER_URL}?lonlats=${lonlats}&profile=${PROFILE}&alternativeidx=0&format=geojson${PROFILE_PARAMS}`;
 
   const res = await fetch(url);
   if (!res.ok) {
